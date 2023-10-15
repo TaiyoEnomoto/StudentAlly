@@ -1,0 +1,22 @@
+<h1 class=“yokokoku”>横浜国立大学</h1>
+<img src="https://i1.wp.com/www.yu-hikai.com/wp-content/uploads/8018fc29.jpg?fit=960,545&ssl=1" alt="横浜国立大学の写真" width="800px">
+  
+<% @posts.each do |t| %>
+	<div class="post">
+		<%= link_to t.subject, post_path(t.id) %>
+		<%= t.kinds %>
+
+		<% if user_signed_in? %>
+			<%= link_to t.user.name, user_path(t.user.id) %> 
+		<% else %>
+			<%= link_to t.user.name, new_user_session_path %>
+		<% end %>
+
+
+		<% if user_signed_in? && current_user.id == t.user_id %>
+			<%= link_to "編集する", edit_post_path(t.id) %>
+			<%= button_to "削除する", post_path(t.id), method: :delete %>
+		<% end %>
+	</div>
+<% end %>
+</div>

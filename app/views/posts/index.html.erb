@@ -1,0 +1,127 @@
+<body>
+  <div class="search_container">
+    <h3>投稿を検索</h3>
+      <%= form_tag({controller:"posts",action:"index"}, method: :get) do %>
+        <%= text_field_tag :search, nil, placeholder: "検索する", style: "width: 400px; height: 40px; border-radius: 20px;" %>
+      <% end %>
+
+      <!--
+      <% if user_signed_in? %>
+        <%= link_to "新規投稿へ", new_post_path %>
+      <% end %>
+      -->
+  </div>
+
+  <div class = "index_box">
+
+    <h1>大学一覧</h1>
+
+    <!--
+    <% if user_signed_in? %>
+      <%= link_to "マイページへ", user_path(current_user.id) %>
+    <% end %>
+    -->
+
+    <!-- 
+    <h4> <%= link_to "電気通信大学", posts_dentsu_path %> </h4>
+    <h4> <%= link_to "東京都立大学", posts_toritsu_path %> </h4>
+    <h4> <%= link_to "横浜国立大学", posts_yokokoku_path %> </h4>
+    <h4> <%= link_to "東京農工大学", posts_noko_path %> </h4>
+    <h4> <%= link_to "千葉大学", posts_chiba_path %> </h4>
+    <h4> <%= link_to "東京外国語大学", posts_gaigodai_path %> </h4>
+    <h4> <%= link_to "東京海洋大学", posts_kaiyodai_path %> </h4>
+    <h4> <%= link_to "横浜市立大学", posts_yokoichi_path %> </h4>
+  -->
+
+    <div class = "college_view01">
+      <div class = "dentsu_view">
+        <a href = posts/dentsu>
+          <img src = "https://th.bing.com/th/id/R.22c6df3cb9f3fd073558b961834ad101?rik=y4VmyHBW29fxMg&riu=http%3a%2f%2ftelemail.jp%2fshingaku%2fcom%2foc%2fthumbnail%2f10003384c002.jpg%3fver%3d20201202-2&ehk=LinUDomwPiLRPlY79d%2b1G%2bRsfbkoWAogE8smul7rPk8%3d&risl=&pid=ImgRaw&r=0" alt="電通の写真" width="300px" class="img_item">
+        </a>
+      <p>電気通信大学</p>
+      </div> 
+      <div class = "chibadai_view">
+        <a href = posts/chiba>
+          <img src = "https://axivacademy.com/wp-content/uploads/2020/11/c6d191a944c4a63b36cbbe4fa23918c0-scaled.jpg" alt="千葉大の写真" width="300px" class="img_item">
+        </a>
+      <p>千葉大学</p>
+      </div>
+      <div class = "gaigodai_view">
+        <a href = posts/gaigodai>
+          <img src = "https://satokitchen-deai.net/wp-content/uploads/2018/12/%E6%9D%B1%E4%BA%AC%E5%A4%96%E5%9B%BD%E8%AA%9E%E5%A4%A7%E5%AD%A61206.jpg" alt="外語大の写真" width="300px" class="img_item">
+        </a>
+      <p>東京外国語大学</p>
+      </div>
+    </div>
+    
+    <div class="college_view02">
+      <div class="toritsu_view">
+        <a href = posts/toritsu>
+          <img src = "https://www.nihonsekkei.co.jp/wp-content/uploads/2016/09/%E2%97%86%E9%83%BD%E7%AB%8B%E5%A4%A7%E5%AD%A6-%E5%A4%96%E8%A6%B3%EF%BC%88%E5%85%A8%E4%BD%93%EF%BC%89_p.jpg" alt="都立大の写真" class="img_item">
+        </a>
+      <p>都立大学</p>
+      </div>
+      <div class="noko_view">
+        <a href = posts/noko>
+          <img src = "https://static.takeda.tv/uploads/2021/02/QKQ2j1xpZk2MAomxNUZzgqN4d4zrYDPtdmAAq8TG.jpeg" alt="農工大の写真" class="img_item">
+        </a>
+      <p>東京農工大学</p>
+      </div>
+      <div class="yokokoku_view">
+        <a href = posts/yokokoku>
+          <img src = "https://i1.wp.com/www.yu-hikai.com/wp-content/uploads/8018fc29.jpg?fit=960,545&ssl=1" alt="横国の写真" class="img_item">
+        </a>
+      <p>横浜国立大学</p>
+      </div>
+    </div>
+
+    <div class="posts-container">
+
+      <h2>投稿一覧</h2>
+      
+      <% @posts.each do |t| %>
+        <div class="post">
+          <div class="post_ImagesBlock">
+            <%= image_tag t.image_url, size: "300x300", class:"post_images" if t.image? %>
+          </div>
+          <div class="post_detail">
+            <% if user_signed_in? %>
+              <p class="text_resize">投稿者名：<%= link_to t.user.name, user_path(t.user.id) %> </p>
+            <% else %>
+              <p class="text_resize">投稿者名：<%= link_to t.user.name, new_user_session_path %> </p>
+            <% end %>
+
+            <p class="text_resize">大学名：<%= t.name %></p>
+            <p class="text_resize">科目名：<%= t.subject %></p>
+            <p class="text_resize">レポート・試験種類：<%= t.kinds %></p>
+            <p class="text_resize">コメント：<%= t.about %></p>
+            
+            <% if user_signed_in? %>
+              <% if current_user.already_played?(t) %>
+                <%= button_to post_play_path(id: t.id, post_id: t.id), method: :delete do %>
+                  <p>いいねを取り消す</p>
+                  <%= t.plays.count %>
+                <% end %>
+              <% else %>
+                <%= button_to post_plays_path(id: t.id, post_id: t.id), method: :post do %>
+                  <p>いいね</p>
+                  <%= t.plays.count %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <p>いいねの数 = <%= t.plays.count %></p>
+            <% end %>
+
+            <%= link_to "詳細へ", post_path(t.id), class: "text_resize" %><br>
+
+          <% if user_signed_in? && current_user.id == t.user_id %>
+            <%= link_to "編集する", edit_post_path(t.id), class: "text_resize" %><br>
+            <%= button_to "削除する", post_path(t.id), method: :delete %><br>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</body>
+

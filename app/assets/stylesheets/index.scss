@@ -1,0 +1,141 @@
+.search_container{
+	width: 50%;
+  margin: 10px auto;
+  text-align: center;
+  margin: 10px auto;
+  border-radius: 20px;
+}
+.index_box {
+  width: 80%;
+  margin: 10px auto;
+  background-color: white;
+  border: solid #d3def1;
+  border-radius: 20px;
+  text-align: center;
+}
+.post {
+  background-color: beige;
+  /*margin-top: 10px;  */
+  margin: 10px auto;
+  padding-top: 20px;
+  display: flex;
+  border-radius: 20px;
+}
+.posts-container {
+  width: 80%;
+  margin: 30px auto;
+}
+.college_view01 {
+  display: flex;
+  /*background-color: red; */
+  margin: 30px auto;
+}
+.college_view02 {
+  display: flex;
+  /*background-color: red; */
+  margin: 30px auto;
+}
+
+.dentsu_view {
+  margin: 10px auto;
+  /*background-color: peru; */
+}
+.dentsu_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.dentsu_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+.chibadai_view {
+  margin: 10px auto;
+  /* background-color: pink; */
+}
+.chibadai_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.chibadai_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+.gaigodai_view {
+  margin: 10px auto;
+  /* background-color: blueviolet; */
+}
+.gaigodai_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.gaigodai_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+.toritsu_view {
+  margin: 10px auto;
+}
+.toritsu_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.toritsu_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+.noko_view {
+  margin: 10px auto;
+}
+.noko_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.noko_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+.yokokoku_view {
+  margin: 10px auto;
+}
+.yokokoku_view img{
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.yokokoku_view:hover img{
+  opacity: 0.6;
+  transition-duration: 0.3s;
+}
+
+.img_item {
+  width: 300px;
+  height: 100%;
+  object-fit: cover; /* width, heightといっしょに使います */
+}
+img {
+  border-radius: 20px;
+ /* width: 300px; */
+}
+
+.post_ImagesBlock {
+  width: 40%;
+  margin: 10px auto;
+}
+.post_images {
+  margin: 10px auto;
+}
+.post_detail {
+  width: 40%;
+  margin: 10px auto;
+  text-align: left;
+}
+.text_resize {
+  font-size: 20px;
+}
+body {
+  background-image: url('https://sozai-dx.com/bg/bg008.jpg');
+  background-size: cover;
+}

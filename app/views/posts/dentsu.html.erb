@@ -1,0 +1,72 @@
+<body>
+	<div class="dentsu_box">
+		<h1 class=“dentsu”>電気通信大学</h1>
+
+		<img src="https://th.bing.com/th/id/R.22c6df3cb9f3fd073558b961834ad101?rik=y4VmyHBW29fxMg&riu=http%3a%2f%2ftelemail.jp%2fshingaku%2fcom%2foc%2fthumbnail%2f10003384c002.jpg%3fver%3d20201202-2&ehk=LinUDomwPiLRPlY79d%2b1G%2bRsfbkoWAogE8smul7rPk8%3d&risl=&pid=ImgRaw&r=0" alt="電気通信大学の写真" width="800px" class="dentsu_image">
+
+		<% @posts.each do |t| %>
+			<div class="post">
+				<div class="post_ImagesBlock">
+					<%= image_tag t.image_url, size: "300x300", class:"post_images" if t.image? %>
+				</div>
+				<div class="post_detail">
+					<% if user_signed_in? %>
+						<p class="text_resize">投稿者名：<%= link_to t.user.name, user_path(t.user.id) %> </p>
+					<% else %>
+						<p class="text_resize">投稿者名：<%= link_to t.user.name, new_user_session_path %> </p>
+					<% end %>
+
+					<p class="text_resize">大学名：<%= t.name %></p>
+					<p class="text_resize">科目名：<%= t.subject %></p>
+					<p class="text_resize">レポート・試験種類：<%= t.kinds %></p>
+					<p class="text_resize">コメント：<%= t.about %></p>
+					
+					<% if user_signed_in? %>
+						<% if current_user.already_played?(t) %>
+							<%= button_to post_play_path(id: t.id, post_id: t.id), method: :delete do %>
+								<p>いいねを取り消す</p>
+								<%= t.plays.count %>
+							<% end %>
+						<% else %>
+							<%= button_to post_plays_path(id: t.id, post_id: t.id), method: :post do %>
+								<p>いいね</p>
+								<%= t.plays.count %>
+							<% end %>
+						<% end %>
+					<% else %>
+						<p>いいねの数 = <%= t.plays.count %></p>
+					<% end %>
+
+					<%= link_to "詳細へ", post_path(t.id), class: "text_resize" %><br>
+
+				<% if user_signed_in? && current_user.id == t.user_id %>
+					<%= link_to "編集する", edit_post_path(t.id), class: "text_resize" %><br>
+					<%= button_to "削除する", post_path(t.id), method: :delete %><br>
+				<% end %>
+				</div>
+			</div>
+		<% end %>
+
+
+		<!--
+		<% @posts.each do |t| %>
+			<div class="post">
+				<%= link_to t.subject, post_path(t.id) %>
+				<%= t.kinds %>
+
+				<% if user_signed_in? %>
+					<%= link_to t.user.name, user_path(t.user.id) %> 
+				<% else %>
+					<%= link_to t.user.name, new_user_session_path %>
+				<% end %>
+
+
+				<% if user_signed_in? && current_user.id == t.user_id %>
+					<%= link_to "編集する", edit_post_path(t.id) %>
+					<%= button_to "削除する", post_path(t.id), method: :delete %>
+				<% end %>
+			</div>
+		<% end %>
+		-->
+	</div>
+</body>

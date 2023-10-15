@@ -1,0 +1,38 @@
+<h3>新規投稿ページ</h3>
+<%= form_for @post do |f| %>
+
+大学名
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => 30 %>
+  </div>
+
+科目名
+  <div class="field">
+    <%= f.label :subject %>
+    <%= f.text_field :subject, :size => 30 %>
+  </div>
+
+レポート名や試験名など
+  <div class="field">
+    <%= f.label :kinds %>
+    <%= f.text_field :kinds, :size => 30 %>
+  </div>
+
+投稿したい過去レポ
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+
+補足
+  <div class="field">
+    <%= f.label :about  %>
+    <%= f.text_area :about, :size => "30x2" %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", posts_path %>

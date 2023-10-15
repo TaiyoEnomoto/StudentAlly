@@ -1,0 +1,52 @@
+<h3><%= @post.subject %></h3>
+
+<div class="post">
+  <p><%= @post.user.email %></p>
+  <p><%= @post.created_at %></p>
+  <p> <%= image_tag  @post.image_url, size: "250x250" if @post.image? %></p>
+
+    <% if user_signed_in? %>
+      <% if current_user.already_played?(@post) %>
+        <%= link_to post_play_path(@post), method: :delete do %>
+          <i class="fas fa-heart"></i><%= @post.plays.count %>
+        <% end %>
+      <% else %>
+        <%= link_to post_plays_path(@post), method: :post do %>
+          <i class="far fa-heart"></i><%= @post.plays.count %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <i class="far fa-heart"></i><%= @post.plays.count %>
+    <% end %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @post.played_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@post, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "編集する", edit_post_path(@post.id) %>
+<%= link_to "post一覧に戻る", posts_path %>
+
+
